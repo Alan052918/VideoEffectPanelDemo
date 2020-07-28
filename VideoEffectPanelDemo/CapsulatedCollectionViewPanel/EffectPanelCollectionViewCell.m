@@ -7,6 +7,7 @@
 //
 
 #import "EffectPanelCollectionViewCell.h"
+#import "EffectPanelModelUnit.h"
 
 static const CGFloat EffectThumbnailImageHeight = 50.0f;
 static const CGFloat EffectThumbnailImageWidth = 50.0f;
@@ -14,15 +15,13 @@ static const CGFloat EffectThumbnailImageMargin = 5.0f;
 
 @interface EffectPanelCollectionViewCell ()
 
-- (void)setupContentView;
-
 @end
 
 @implementation EffectPanelCollectionViewCell
 
 
-- (instancetype)init {
-    self = [super init];
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if (self) {
         [self setupContentView];
     }
@@ -37,14 +36,27 @@ static const CGFloat EffectThumbnailImageMargin = 5.0f;
     self.effectThumbnailImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:self.effectThumbnailImageView];
     
-    self.effectNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.effectThumbnailImageView.frame.size.height + 10, self.frame.size.width, self.effectNameLabel.font.lineHeight)];
+    self.effectNameLabel = [[UILabel alloc] init];
+    self.effectNameLabel.frame = CGRectMake(0, self.effectThumbnailImageView.frame.size.height, self.frame.size.width, self.effectNameLabel.font.lineHeight);
     self.effectNameLabel.textAlignment = NSTextAlignmentCenter;
+    self.effectNameLabel.text = @"Name";
     [self addSubview:self.effectNameLabel];
     
     self.effectSelectedMask = [[UITextView alloc] initWithFrame:CGRectMake(EffectThumbnailImageMargin, 0, EffectThumbnailImageWidth, EffectThumbnailImageHeight)];
     self.effectSelectedMask.layer.cornerRadius = 6;
     self.effectSelectedMask.layer.masksToBounds = YES;
     self.effectSelectedMask.contentMode = UIViewContentModeScaleAspectFill;
+    self.effectSelectedMask.backgroundColor = [UIColor clearColor];
+    self.effectSelectedMask.text = @"SELECTED!";
+}
+
+
+- (void)updateContentViewWithEffectModelUnit:(EffectPanelModelUnit *)effectModelUnit {
+    self.effectNameLabel.text = effectModelUnit.cellName;
+    self.effectThumbnailImageView.image = [UIImage imageNamed:effectModelUnit.cellImageUrl];
+    if (effectModelUnit.isSelected) {
+        [self addSubview:self.effectSelectedMask];
+    }
 }
 
 

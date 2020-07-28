@@ -10,11 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class EffectPanelModelUnit;
 @interface EffectPanelCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, strong) UILabel *effectNameLabel;
 @property (nonatomic, strong) UIImageView *effectThumbnailImageView;
 @property (nonatomic, strong) UITextView *effectSelectedMask;
+
+- (void)setupContentView;
+- (void)updateContentViewWithEffectModelUnit:(EffectPanelModelUnit *)effectModelUnit;
 
 @end
 

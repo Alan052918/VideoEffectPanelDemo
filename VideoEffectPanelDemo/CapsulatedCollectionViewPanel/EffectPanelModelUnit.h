@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *cellId;
 @property (nonatomic, strong) NSString *cellName;
 @property (nonatomic, strong) NSString *cellImageUrl;
-@property (nonatomic, assign) BOOL selected;
+@property (nonatomic, assign, getter=isSelected) BOOL selected;
 
 @end
 

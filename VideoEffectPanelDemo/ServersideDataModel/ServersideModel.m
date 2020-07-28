@@ -18,31 +18,31 @@
 - (void)populateServersideModelContent {
     ServersideModelUnit *alice = [[ServersideModelUnit alloc] init];
     alice.imageName = @"Alice";
-    alice.imageUrl = @"placeholder.com/alice";
+    alice.imageUrl = @"placeholder.comalice";
     alice.imageCaption = @"A cool girl";
     alice.selected = NO;
     
     ServersideModelUnit *bob = [[ServersideModelUnit alloc] init];
     bob.imageName = @"Bob";
-    bob.imageUrl = @"placeholder.com/bob";
+    bob.imageUrl = @"placeholder.combob";
     bob.imageCaption = @"A cool boy";
     bob.selected = NO;
     
     ServersideModelUnit *curry = [[ServersideModelUnit alloc] init];
     curry.imageName = @"Curry";
-    curry.imageUrl = @"placeholder.com/curry";
+    curry.imageUrl = @"placeholder.comcurry";
     curry.imageCaption = @"A cool guy";
     curry.selected = NO;
     
     ServersideModelUnit *dylan = [[ServersideModelUnit alloc] init];
     dylan.imageName = @"Dylan";
-    dylan.imageUrl = @"placeholder.com/dylan";
+    dylan.imageUrl = @"placeholder.comdylan";
     dylan.imageCaption = @"A cool hipster";
     dylan.selected = NO;
     
     ServersideModelUnit *emma = [[ServersideModelUnit alloc] init];
     emma.imageName = @"Emma";
-    emma.imageUrl = @"placeholder.com/emma";
+    emma.imageUrl = @"placeholder.comemma";
     emma.imageCaption = @"A cool gangster";
     emma.selected = NO;
     

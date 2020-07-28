@@ -9,7 +9,6 @@
 #import "EffectPanel.h"
 #import "EffectPanelModel.h"
 #import "EffectPanelCollectionViewCell.h"
-#import "EffectPanelModelUnit.h"
 
 static const CGFloat EffectCellHeight = 70.5f;
 static const CGFloat EffectCellWidth = 60.0f;
@@ -76,11 +75,7 @@ static const CGFloat EffectCellLineSpacing = 20.0f;
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     EffectPanelCollectionViewCell *effectPanelCell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(self.collectionViewCellClass) forIndexPath:indexPath];
     EffectPanelModelUnit *effectModelUnit = [self.panelModel objectAtIndex:indexPath.item];
-    effectPanelCell.effectThumbnailImageView.image = [UIImage imageNamed:effectModelUnit.cellImageUrl];
-    effectPanelCell.effectNameLabel.text = effectModelUnit.cellName;
-    if (effectModelUnit.selected) {
-        [effectPanelCell addSubview:effectPanelCell.effectSelectedMask];
-    }
+    [effectPanelCell updateContentViewWithEffectModelUnit:effectModelUnit];
     effectPanelCell.backgroundColor = [UIColor greenColor];
     return effectPanelCell;
 }
