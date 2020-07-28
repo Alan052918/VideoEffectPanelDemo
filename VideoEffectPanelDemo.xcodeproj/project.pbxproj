@@ -20,6 +20,9 @@
 		F7E8F72324D026D500C73242 /* EffectPanelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F72224D026D500C73242 /* EffectPanelModel.m */; };
 		F7E8F72E24D03AFF00C73242 /* EffectPanelModelUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F72D24D03AFF00C73242 /* EffectPanelModelUnit.m */; };
 		F7E8F73124D03B2F00C73242 /* EffectPanelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F73024D03B2F00C73242 /* EffectPanelCollectionViewCell.m */; };
+		F9BB8C3924D0918F00C5E75C /* EffectDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BB8C3824D0918F00C5E75C /* EffectDownloadManager.m */; };
+		F9BB8C3C24D0927400C5E75C /* Effect.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BB8C3B24D0927400C5E75C /* Effect.m */; };
+		F9BB8C3F24D09A3F00C5E75C /* EffectDownloadTask.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BB8C3E24D09A3F00C5E75C /* EffectDownloadTask.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +50,12 @@
 		F7E8F72D24D03AFF00C73242 /* EffectPanelModelUnit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EffectPanelModelUnit.m; sourceTree = "<group>"; };
 		F7E8F72F24D03B2F00C73242 /* EffectPanelCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EffectPanelCollectionViewCell.h; sourceTree = "<group>"; };
 		F7E8F73024D03B2F00C73242 /* EffectPanelCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EffectPanelCollectionViewCell.m; sourceTree = "<group>"; };
+		F9BB8C3724D0918F00C5E75C /* EffectDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EffectDownloadManager.h; sourceTree = "<group>"; };
+		F9BB8C3824D0918F00C5E75C /* EffectDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EffectDownloadManager.m; sourceTree = "<group>"; };
+		F9BB8C3A24D0927400C5E75C /* Effect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Effect.h; sourceTree = "<group>"; };
+		F9BB8C3B24D0927400C5E75C /* Effect.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Effect.m; sourceTree = "<group>"; };
+		F9BB8C3D24D09A3F00C5E75C /* EffectDownloadTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EffectDownloadTask.h; sourceTree = "<group>"; };
+		F9BB8C3E24D09A3F00C5E75C /* EffectDownloadTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EffectDownloadTask.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +94,7 @@
 				F7E8F6F624D0189400C73242 /* SceneDelegate.m */,
 				F7E8F6F824D0189400C73242 /* ViewController.h */,
 				F7E8F6F924D0189400C73242 /* ViewController.m */,
+				F9BB8C3624D090DA00C5E75C /* ResourceManager */,
 				F7E8F72A24D02C2500C73242 /* CapsulatedCollectionViewPanel */,
 				F7E8F72B24D02C3F00C73242 /* ServersideDataModel */,
 				F7E8F6FB24D0189400C73242 /* Main.storyboard */,
@@ -120,6 +130,19 @@
 				F76A253224D05C4A00850AB2 /* ServersideModelUnit.m */,
 			);
 			path = ServersideDataModel;
+			sourceTree = "<group>";
+		};
+		F9BB8C3624D090DA00C5E75C /* ResourceManager */ = {
+			isa = PBXGroup;
+			children = (
+				F9BB8C3A24D0927400C5E75C /* Effect.h */,
+				F9BB8C3B24D0927400C5E75C /* Effect.m */,
+				F9BB8C3D24D09A3F00C5E75C /* EffectDownloadTask.h */,
+				F9BB8C3E24D09A3F00C5E75C /* EffectDownloadTask.m */,
+				F9BB8C3724D0918F00C5E75C /* EffectDownloadManager.h */,
+				F9BB8C3824D0918F00C5E75C /* EffectDownloadManager.m */,
+			);
+			path = ResourceManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,14 +216,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7E8F6FA24D0189400C73242 /* ViewController.m in Sources */,
+				F9BB8C3924D0918F00C5E75C /* EffectDownloadManager.m in Sources */,
 				F7E8F6F424D0189400C73242 /* AppDelegate.m in Sources */,
 				F7E8F73124D03B2F00C73242 /* EffectPanelCollectionViewCell.m in Sources */,
 				F76A253024D05C3F00850AB2 /* ServersideModel.m in Sources */,
 				F7E8F72E24D03AFF00C73242 /* EffectPanelModelUnit.m in Sources */,
 				F76A253324D05C4A00850AB2 /* ServersideModelUnit.m in Sources */,
 				F7E8F70524D0189600C73242 /* main.m in Sources */,
+				F9BB8C3C24D0927400C5E75C /* Effect.m in Sources */,
 				F7E8F72324D026D500C73242 /* EffectPanelModel.m in Sources */,
 				F7E8F72024D025FF00C73242 /* EffectPanel.m in Sources */,
+				F9BB8C3F24D09A3F00C5E75C /* EffectDownloadTask.m in Sources */,
 				F7E8F6F724D0189400C73242 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

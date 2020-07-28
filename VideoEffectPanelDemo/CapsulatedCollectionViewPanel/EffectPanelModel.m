@@ -8,7 +8,6 @@
 
 #import "EffectPanelModel.h"
 #import "EffectPanelModelUnit.h"
-#import "EffectPanelCollectionViewCell.h"
 
 @interface EffectPanelModel ()
 
@@ -44,7 +43,11 @@
 
 
 - (void)selectEffectUnitAtIndex:(NSInteger)index {
-    [self.effectUnits objectAtIndex:index].selected = YES;
+    EffectPanelModelUnit *targetEffectUnit = [self.effectUnits objectAtIndex:index];
+    targetEffectUnit.selected = targetEffectUnit.isSelected ? NO : YES;
+    if (targetEffectUnit.isSelected) {
+        NSLog(@"Download Cancelled");
+    }
 }
 
 

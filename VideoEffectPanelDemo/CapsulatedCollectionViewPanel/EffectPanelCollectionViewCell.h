@@ -15,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *effectNameLabel;
 @property (nonatomic, strong) UIImageView *effectThumbnailImageView;
-@property (nonatomic, strong) UITextView *effectSelectedMask;
+@property (nonatomic, strong) UILabel *effectSelectedMask;
+@property (nonatomic, strong) UILabel *effectDownloadMask;
 
 - (void)setupContentView;
 - (void)updateContentViewWithEffectModelUnit:(EffectPanelModelUnit *)effectModelUnit;

@@ -19,7 +19,9 @@ static const CGFloat EffectThumbnailImageMargin = 5.0f;
 
 @implementation EffectPanelCollectionViewCell
 
-
+/**
+ * Called by dequeueReusableCellWithReuseIdentifier:
+ */
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -29,35 +31,58 @@ static const CGFloat EffectThumbnailImageMargin = 5.0f;
 }
 
 
+/**
+ * Compose effect thumbnail image, name label, and selected mask
+ */
 - (void)setupContentView {
-    self.effectThumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(EffectThumbnailImageMargin, 0, EffectThumbnailImageWidth, EffectThumbnailImageHeight)];
-    self.effectThumbnailImageView.layer.cornerRadius = 6;
+    CGRect ThumbnailFrame = CGRectMake(EffectThumbnailImageMargin, 0.0f, EffectThumbnailImageWidth, EffectThumbnailImageHeight);
+    self.effectThumbnailImageView = [[UIImageView alloc] initWithFrame:ThumbnailFrame];
+    self.effectThumbnailImageView.layer.cornerRadius = 6.0f;
     self.effectThumbnailImageView.layer.masksToBounds = YES;
     self.effectThumbnailImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:self.effectThumbnailImageView];
     
     self.effectNameLabel = [[UILabel alloc] init];
-    self.effectNameLabel.frame = CGRectMake(0, self.effectThumbnailImageView.frame.size.height, self.frame.size.width, self.effectNameLabel.font.lineHeight);
+    self.effectNameLabel.font = [UIFont systemFontOfSize:11.5f];
+    self.effectNameLabel.frame = CGRectMake(0.0f, self.effectThumbnailImageView.frame.size.height, self.frame.size.width, self.effectNameLabel.font.lineHeight);
     self.effectNameLabel.textAlignment = NSTextAlignmentCenter;
-    self.effectNameLabel.text = @"Name";
     [self addSubview:self.effectNameLabel];
     
-    self.effectSelectedMask = [[UITextView alloc] initWithFrame:CGRectMake(EffectThumbnailImageMargin, 0, EffectThumbnailImageWidth, EffectThumbnailImageHeight)];
-    self.effectSelectedMask.layer.cornerRadius = 6;
+    self.effectSelectedMask = [[UILabel alloc] initWithFrame:ThumbnailFrame];
+    self.effectSelectedMask.layer.cornerRadius = 6.0f;
     self.effectSelectedMask.layer.masksToBounds = YES;
-    self.effectSelectedMask.contentMode = UIViewContentModeScaleAspectFill;
-    self.effectSelectedMask.backgroundColor = [UIColor clearColor];
-    self.effectSelectedMask.text = @"SELECTED!";
+    self.effectSelectedMask.backgroundColor = UIColor.greenColor;
+    self.effectSelectedMask.alpha = 0.0f;
+    self.effectSelectedMask.font = [UIFont systemFontOfSize:7.5f];
+    self.effectSelectedMask.text = @"SELECTED";
+    self.effectSelectedMask.textColor = UIColor.whiteColor;
+    self.effectSelectedMask.textAlignment = NSTextAlignmentCenter;
+    self.effectSelectedMask.userInteractionEnabled = NO;
+    [self addSubview:self.effectSelectedMask];
+    
+    self.effectDownloadMask = [[UILabel alloc] initWithFrame:ThumbnailFrame];
+    self.effectDownloadMask.layer.cornerRadius = 6.0f;
+    self.effectDownloadMask.layer.masksToBounds = YES;
+    self.effectDownloadMask.backgroundColor = UIColor.redColor;
+    self.effectDownloadMask.alpha = 0.0f;
+    self.effectDownloadMask.adjustsFontSizeToFitWidth = YES;
+    self.effectDownloadMask.textColor = UIColor.whiteColor;
+    self.effectDownloadMask.userInteractionEnabled = NO;
+    [self addSubview:self.effectDownloadMask];
 }
 
 
+/**
+ * Bind Model data to View display
+ */
 - (void)updateContentViewWithEffectModelUnit:(EffectPanelModelUnit *)effectModelUnit {
-    self.effectNameLabel.text = effectModelUnit.cellName;
-    self.effectThumbnailImageView.image = [UIImage imageNamed:effectModelUnit.cellImageUrl];
-    if (effectModelUnit.isSelected) {
-        [self addSubview:self.effectSelectedMask];
-    }
+    self.effectNameLabel.text = effectModelUnit.effectUnitName;
+    self.effectThumbnailImageView.image = [UIImage imageNamed:effectModelUnit.effectUnitImageUrl];
+    self.effectSelectedMask.alpha = effectModelUnit.isSelected ? 0.6f : 0.0f;
 }
+
+
+
 
 
 @end

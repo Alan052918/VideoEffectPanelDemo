@@ -34,7 +34,7 @@
     ServersideModel *serversideModel = [[ServersideModel alloc] init];
     [serversideModel populateServersideModelContent];
     [self.effectPanel.panelModel populateModelWithEffectUnitArray:[self effectModelArrayFromServersideModel:serversideModel]];
-    [self.effectPanel reloadCollectionView];
+//    [self.effectPanel reloadCollectionView];
     
     [self.view addSubview:self.effectPanel];
 
@@ -48,9 +48,9 @@
     for (int i = 0; i < serversideModel.serverSideModelContent.count; ++i) {
         EffectPanelModelUnit *effectPanelModelUnit = [[EffectPanelModelUnit alloc] init];
         ServersideModelUnit *serversideModelUnit = [serversideModel.serverSideModelContent objectAtIndex:i];
-        effectPanelModelUnit.cellId = [NSString stringWithFormat:@"epcell%d", i];
-        effectPanelModelUnit.cellName = serversideModelUnit.imageName;
-        effectPanelModelUnit.cellImageUrl = serversideModelUnit.imageUrl;
+        effectPanelModelUnit.effectUnitId = [NSString stringWithFormat:@"epcell%d", i];
+        effectPanelModelUnit.effectUnitName = serversideModelUnit.imageName;
+        effectPanelModelUnit.effectUnitImageUrl = serversideModelUnit.imageUrl;
         effectPanelModelUnit.selected = NO;
         
         [effectModelArray addObject:effectPanelModelUnit];

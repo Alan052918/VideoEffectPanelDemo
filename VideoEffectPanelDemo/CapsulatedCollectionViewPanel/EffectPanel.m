@@ -12,8 +12,9 @@
 
 static const CGFloat EffectCellHeight = 70.5f;
 static const CGFloat EffectCellWidth = 60.0f;
-static const CGFloat EffectCellSpacing = 11.0f;
-static const CGFloat EffectCellLineSpacing = 20.0f;
+static const CGFloat EffectCellSpacingMin = 11.0f;
+static const CGFloat EffectCellSpacingTopBottom = 20.0f;
+static const CGFloat EffectCellSpacingLeftRight = 15.0f;
 
 @interface EffectPanel ()
 
@@ -30,13 +31,14 @@ static const CGFloat EffectCellLineSpacing = 20.0f;
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.itemSize = CGSizeMake(EffectCellWidth, EffectCellHeight);
         flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        flowLayout.minimumInteritemSpacing = EffectCellSpacing;
-        flowLayout.minimumLineSpacing = EffectCellLineSpacing;
-        flowLayout.sectionInset = UIEdgeInsetsMake(EffectCellLineSpacing, 15, EffectCellLineSpacing, 15);
+        flowLayout.minimumInteritemSpacing = EffectCellSpacingMin;
+        flowLayout.minimumLineSpacing = EffectCellSpacingTopBottom;
+        flowLayout.sectionInset = UIEdgeInsetsMake(EffectCellSpacingTopBottom, EffectCellSpacingLeftRight, EffectCellSpacingTopBottom, EffectCellSpacingLeftRight);
 
         self.collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
         self.collectionView.delegate = self;
         self.collectionView.dataSource = self;
+        self.collectionView.allowsMultipleSelection = YES;
         self.collectionView.backgroundColor = [UIColor clearColor];
         self.collectionViewCellClass = EffectPanelCollectionViewCell.class;
         [self.collectionView registerClass:self.collectionViewCellClass forCellWithReuseIdentifier:NSStringFromClass(self.collectionViewCellClass)];
@@ -76,7 +78,6 @@ static const CGFloat EffectCellLineSpacing = 20.0f;
     EffectPanelCollectionViewCell *effectPanelCell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(self.collectionViewCellClass) forIndexPath:indexPath];
     EffectPanelModelUnit *effectModelUnit = [self.panelModel objectAtIndex:indexPath.item];
     [effectPanelCell updateContentViewWithEffectModelUnit:effectModelUnit];
-    effectPanelCell.backgroundColor = [UIColor greenColor];
     return effectPanelCell;
 }
 

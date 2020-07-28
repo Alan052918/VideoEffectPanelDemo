@@ -10,13 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class Effect;
 /// Template data model unit panel users need to compose
 @interface EffectPanelModelUnit : NSObject
 
-@property (nonatomic, strong) NSString *cellId;
-@property (nonatomic, strong) NSString *cellName;
-@property (nonatomic, strong) NSString *cellImageUrl;
+@property (nonatomic, strong) NSString *effectUnitId;
+@property (nonatomic, strong) NSString *effectUnitName;
+@property (nonatomic, strong) NSString *effectUnitImageUrl;
 @property (nonatomic, assign, getter=isSelected) BOOL selected;
+@property (nonatomic, strong, nullable) Effect *effectUnitEffect;
 
 @end
 
