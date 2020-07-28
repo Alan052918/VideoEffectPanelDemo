@@ -38,7 +38,7 @@ static const CGFloat EffectCellSpacingLeftRight = 15.0f;
         self.collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
         self.collectionView.delegate = self;
         self.collectionView.dataSource = self;
-        self.collectionView.allowsMultipleSelection = YES;
+        self.collectionView.allowsMultipleSelection = NO;
         self.collectionView.backgroundColor = [UIColor clearColor];
         self.collectionViewCellClass = EffectPanelCollectionViewCell.class;
         [self.collectionView registerClass:self.collectionViewCellClass forCellWithReuseIdentifier:NSStringFromClass(self.collectionViewCellClass)];

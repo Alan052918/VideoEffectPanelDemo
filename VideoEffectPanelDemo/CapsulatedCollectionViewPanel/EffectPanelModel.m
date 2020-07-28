@@ -45,8 +45,14 @@
 - (void)selectEffectUnitAtIndex:(NSInteger)index {
     EffectPanelModelUnit *targetEffectUnit = [self.effectUnits objectAtIndex:index];
     targetEffectUnit.selected = targetEffectUnit.isSelected ? NO : YES;
-    if (targetEffectUnit.isSelected) {
-        NSLog(@"Download Cancelled");
+    if (!targetEffectUnit.effectUnitEffect) {
+        if (targetEffectUnit.isSelected) {
+            NSLog(@"Download beginned");
+        } else {
+            NSLog(@"Download cancelled");
+        }
+    } else if (targetEffectUnit.isSelected) {
+        NSLog(@"Effect applied");
     }
 }
 
