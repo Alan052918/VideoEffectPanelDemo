@@ -10,9 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class Effect;
 @interface EffectDownloadTask : NSObject
 
-- (void)startDownloadingEffect;
+@property (nonatomic, strong) NSString *taskId;
+@property (nonatomic, assign) NSInteger downloadProgressValue;
+
+- (Effect *)downloadEffect;
 
 @end
 

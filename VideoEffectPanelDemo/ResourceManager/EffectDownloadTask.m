@@ -7,15 +7,23 @@
 //
 
 #import "EffectDownloadTask.h"
+#import "Effect.h"
+
+@interface EffectDownloadTask ()
+
+@end
 
 @implementation EffectDownloadTask
 
 
-- (void)startDownloadingEffect {
-    for (int i = 0; i < 10; ++i) {
-        
-        [NSThread sleepForTimeInterval:0.1f];
+- (Effect *)downloadEffect {
+    for (int i = 0; i <= 10; ++i) {
+        self.downloadProgressValue = 10 * i;
+        NSLog(@"[%@.m] downloading effect: %ld%%", self.class, self.downloadProgressValue);
+        [NSThread sleepForTimeInterval:0.3f];
     }
+    Effect *effect = [[Effect alloc] init];
+    return effect;
 }
 
 

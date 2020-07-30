@@ -7,13 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EffectPanelCollectionViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class EffectPanelCollectionViewCell;
-@interface EffectDownloadManager : NSObject
-
-- (void)addDownloadTaskForCell:(EffectPanelCollectionViewCell *)cell;
+@interface EffectDownloadManager : NSObject <EffectPanelCollectionViewCellDelegate>
 
 @end
 

@@ -10,14 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class EffectPanelModel;
-@interface EffectPanel : UIView <UICollectionViewDelegate, UICollectionViewDataSource>
+@class EffectPanelCollectionViewModel, EffectPanelCollectionViewCellModel;
+@interface EffectPanelView : UIView <UICollectionViewDelegate, UICollectionViewDataSource>
 
-@property (nonatomic, strong) EffectPanelModel *panelModel;
 @property (nonatomic, assign) Class collectionViewCellClass;
+@property (nonatomic, strong) EffectPanelCollectionViewModel *panelModel;
+@property (nonatomic, strong) NSMutableArray <EffectPanelCollectionViewCellModel *> *selectedPanelModelUnitArray;
 
 - (void)reloadCollectionView;
 - (void)registerCellClass:(Class)cellClass;
+- (void)pushUpdateSubView:(UIView *)subView withViewModel:(NSObject *)viewModel
 
 @end
 

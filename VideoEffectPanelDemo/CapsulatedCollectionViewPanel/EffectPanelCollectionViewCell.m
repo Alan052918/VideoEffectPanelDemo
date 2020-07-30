@@ -7,13 +7,16 @@
 //
 
 #import "EffectPanelCollectionViewCell.h"
-#import "EffectPanelModelUnit.h"
+#import "EffectPanelCollectionViewCellModel.h"
+#import "Effect.h"
 
 static const CGFloat EffectThumbnailImageHeight = 50.0f;
 static const CGFloat EffectThumbnailImageWidth = 50.0f;
 static const CGFloat EffectThumbnailImageMargin = 5.0f;
 
 @interface EffectPanelCollectionViewCell ()
+
+- (void)setupContentView;
 
 @end
 
@@ -36,53 +39,67 @@ static const CGFloat EffectThumbnailImageMargin = 5.0f;
  */
 - (void)setupContentView {
     CGRect ThumbnailFrame = CGRectMake(EffectThumbnailImageMargin, 0.0f, EffectThumbnailImageWidth, EffectThumbnailImageHeight);
-    self.effectThumbnailImageView = [[UIImageView alloc] initWithFrame:ThumbnailFrame];
-    self.effectThumbnailImageView.layer.cornerRadius = 6.0f;
-    self.effectThumbnailImageView.layer.masksToBounds = YES;
-    self.effectThumbnailImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self addSubview:self.effectThumbnailImageView];
+    self.cellThumbnailImageView = [[UIImageView alloc] initWithFrame:ThumbnailFrame];
+    self.cellThumbnailImageView.layer.cornerRadius = 6.0f;
+    self.cellThumbnailImageView.layer.masksToBounds = YES;
+    self.cellThumbnailImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self addSubview:self.cellThumbnailImageView];
     
-    self.effectNameLabel = [[UILabel alloc] init];
-    self.effectNameLabel.font = [UIFont systemFontOfSize:11.5f];
-    self.effectNameLabel.frame = CGRectMake(0.0f, self.effectThumbnailImageView.frame.size.height, self.frame.size.width, self.effectNameLabel.font.lineHeight);
-    self.effectNameLabel.textAlignment = NSTextAlignmentCenter;
-    [self addSubview:self.effectNameLabel];
+    self.cellNameLabel = [[UILabel alloc] init];
+    self.cellNameLabel.font = [UIFont systemFontOfSize:11.5f];
+    self.cellNameLabel.frame = CGRectMake(0.0f, self.cellThumbnailImageView.frame.size.height, self.frame.size.width, self.cellNameLabel.font.lineHeight);
+    self.cellNameLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:self.cellNameLabel];
     
-    self.effectSelectedMask = [[UILabel alloc] initWithFrame:ThumbnailFrame];
-    self.effectSelectedMask.layer.cornerRadius = 6.0f;
-    self.effectSelectedMask.layer.masksToBounds = YES;
-    self.effectSelectedMask.backgroundColor = UIColor.blackColor;
-    self.effectSelectedMask.alpha = 0.0f;
-    self.effectSelectedMask.font = [UIFont systemFontOfSize:7.5f];
-    self.effectSelectedMask.text = @"SELECTED";
-    self.effectSelectedMask.textColor = UIColor.whiteColor;
-    self.effectSelectedMask.textAlignment = NSTextAlignmentCenter;
-    self.effectSelectedMask.userInteractionEnabled = NO;
-    [self addSubview:self.effectSelectedMask];
+    self.cellSelectedMask = [[UILabel alloc] initWithFrame:ThumbnailFrame];
+    self.cellSelectedMask.layer.cornerRadius = 6.0f;
+    self.cellSelectedMask.layer.masksToBounds = YES;
+    self.cellSelectedMask.backgroundColor = UIColor.blackColor;
+    self.cellSelectedMask.alpha = 0.0f;
+    self.cellSelectedMask.font = [UIFont systemFontOfSize:7.5f];
+    self.cellSelectedMask.text = @"SELECTED";
+    self.cellSelectedMask.textColor = UIColor.whiteColor;
+    self.cellSelectedMask.textAlignment = NSTextAlignmentCenter;
+    self.cellSelectedMask.userInteractionEnabled = NO;
+    [self addSubview:self.cellSelectedMask];
     
-    self.effectDownloadMask = [[UILabel alloc] initWithFrame:ThumbnailFrame];
-    self.effectDownloadMask.layer.cornerRadius = 6.0f;
-    self.effectDownloadMask.layer.masksToBounds = YES;
-    self.effectDownloadMask.backgroundColor = UIColor.blueColor;
-    self.effectDownloadMask.alpha = 0.0f;
-    self.effectDownloadMask.adjustsFontSizeToFitWidth = YES;
-    self.effectDownloadMask.textColor = UIColor.whiteColor;
-    self.effectDownloadMask.userInteractionEnabled = NO;
-    [self addSubview:self.effectDownloadMask];
+    self.cellDownloadMask = [[UILabel alloc] initWithFrame:ThumbnailFrame];
+    self.cellDownloadMask.layer.cornerRadius = 6.0f;
+    self.cellDownloadMask.layer.masksToBounds = YES;
+    self.cellDownloadMask.backgroundColor = UIColor.blueColor;
+    self.cellDownloadMask.alpha = 0.0f;
+    self.cellDownloadMask.adjustsFontSizeToFitWidth = YES;
+    self.cellDownloadMask.textColor = UIColor.whiteColor;
+    self.cellDownloadMask.userInteractionEnabled = NO;
+    [self addSubview:self.cellDownloadMask];
 }
 
 
 /**
  * Bind Model data to View display
  */
-- (void)updateContentViewWithEffectModelUnit:(EffectPanelModelUnit *)effectModelUnit {
-    self.effectNameLabel.text = effectModelUnit.effectUnitName;
-    self.effectThumbnailImageView.image = [UIImage imageNamed:effectModelUnit.effectUnitImageUrl];
-    self.effectSelectedMask.alpha = effectModelUnit.isSelected ? 0.6f : 0.0f;
+- (Effect *)pushUpdateWithCollectionViewCellModel:(EffectPanelCollectionViewCellModel *)cellViewModel {
+    self.cellId = cellViewModel.cellViewModelId;
+    self.cellNameLabel.text = cellViewModel.cellViewModelName;
+    self.cellThumbnailImageView.image = [UIImage imageNamed:cellViewModel.cellViewModelImageUrl];
+    self.cellSelectedMask.alpha = cellViewModel.isSelected ? 0.6f : 0.0f;
+    if (cellViewModel.cellViewModelEffectStatus == CellViewModelEffectDownloading) {
+        NSLog(@"[%@.m] cell effect downloading", self.class);
+        self.cellDownloadMask.alpha = 0.7f;
+        [self.delegate bindDownloadTaskToEffectPanelCell:self];
+        return [self.delegate downloadEffectForEffectPanelCell:self];
+    }
+    return nil;
 }
 
 
-
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    self.cellDownloadMask.text = [NSString stringWithFormat:@"%@%%", [[object valueForKeyPath:@"downloadProgressValue"] stringValue]];
+    NSLog(@"[%@.m] downloading progress: [%@]", self.class, self.cellDownloadMask.text);
+    if ([self.cellDownloadMask.text isEqualToString:@"100%%"]) {
+        [self.delegate unbindDownloadTaskToEffectPanelCell:self];
+    }
+}
 
 
 @end
