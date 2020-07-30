@@ -12,9 +12,7 @@
 @interface EffectPanelCollectionViewModel ()
 
 @property (nonatomic, strong) NSMutableArray <EffectPanelCollectionViewCellModel *> *collectionViewCellModels;
-//@property (nonatomic, strong) NSMutableArray <EffectPanelCollectionViewCellModel *> *selectedCellViewModels;
-
-- (EffectPanelCollectionViewCellModel *)copyCellViewModel:(EffectPanelCollectionViewCellModel *)cellViewModel withEffect:(Effect *)effect cellViewModelEffectStatus:(CellViewModelEffectStatus)status;
+@property (nonatomic, strong) NSMutableDictionary <NSString *, EffectPanelCollectionViewCellModel *> *selectedCellViewModels;
 
 @end
 
@@ -25,6 +23,7 @@
     self = [super init];
     if (self) {
         self.collectionViewCellModels = [[NSMutableArray alloc] init];
+        self.selectedCellViewModels = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -45,37 +44,24 @@
 }
 
 
-- (void)selectCellViewModelAtIndex:(NSInteger)index {
+- (void)updateCellViewModelAtIndex:(NSInteger)index {
     EffectPanelCollectionViewCellModel *targetCellViewModel = [self.collectionViewCellModels objectAtIndex:index];
     targetCellViewModel.selected = targetCellViewModel.isSelected ? NO : YES;
     if (!targetCellViewModel.cellViewModelEffect) {
         if (targetCellViewModel.isSelected) {
-            [self updateCellViewModelAtIndex:index effect:targetCellViewModel.cellViewModelEffect effectStatus:CellViewModelEffectDownloading];
-            NSLog(@"[%@.m] Cell selected, download beginned", self.class);
+            [self.selectedCellViewModels setObject:targetCellViewModel forKey:targetCellViewModel.cellViewModelId];
+            [self.delegate bindDownloadTaskToEffectPanelCellViewModel:targetCellViewModel];
+            NSLog(@"[%@.m] Cell [%@] selected, download beginned", self.class, targetCellViewModel.cellViewModelName);
+            [self.delegate downloadEffectForEffectPanelCellViewModel:targetCellViewModel];
+            [self.delegate unbindDownloadTaskToEffectPanelCellViewModel:targetCellViewModel];
         } else {
-            [self updateCellViewModelAtIndex:index effect:targetCellViewModel.cellViewModelEffect effectStatus:CellViewModelEffectUncached];
-            NSLog(@"[%@.m] Cell selected, download cancelled", self.class);
+            [self.selectedCellViewModels removeObjectForKey:targetCellViewModel.cellViewModelId];
+            NSLog(@"[%@.m] Cell [%@] selected, download cancelled", self.class, targetCellViewModel.cellViewModelName);
         }
     } else if (targetCellViewModel.isSelected) {
-        NSLog(@"[%@.m] Cell selected, effect applied", self.class);
+        [self.selectedCellViewModels setObject:targetCellViewModel forKey:targetCellViewModel.cellViewModelId];
+        NSLog(@"[%@.m] Cell [%@] selected, effect applied", self.class, targetCellViewModel.cellViewModelName);
     }
-}
-
-
-- (void)updateCellViewModelAtIndex:(NSInteger)index effect:(Effect *)effect effectStatus:(CellViewModelEffectStatus)status {
-    [self.collectionViewCellModels replaceObjectAtIndex:index withObject:[self copyCellViewModel:[self.collectionViewCellModels objectAtIndex:index] withEffect:effect cellViewModelEffectStatus:status]];
-}
-
-
-- (EffectPanelCollectionViewCellModel *)copyCellViewModel:(EffectPanelCollectionViewCellModel *)cellViewModel withEffect:(Effect *)effect cellViewModelEffectStatus:(CellViewModelEffectStatus)status {
-    EffectPanelCollectionViewCellModel *newModel = [[EffectPanelCollectionViewCellModel alloc] init];
-    newModel.cellViewModelId = cellViewModel.cellViewModelId;
-    newModel.cellViewModelName = cellViewModel.cellViewModelName;
-    newModel.cellViewModelImageUrl = cellViewModel.cellViewModelImageUrl;
-    newModel.selected = cellViewModel.isSelected;
-    newModel.cellViewModelEffectStatus = status;
-    newModel.cellViewModelEffect = effect;
-    return newModel;
 }
 
 

@@ -55,38 +55,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "43AA4A40-4A1E-4A70-8763-5D86ED277699"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VideoEffectPanelDemo/CapsulatedCollectionViewPanel/EffectPanelCollectionViewCell.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "-pushUpdateWithCollectionViewCellModel:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F551E6F8-63DF-4634-AB33-B5609340CDDB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VideoEffectPanelDemo/CapsulatedCollectionViewPanel/EffectPanelCollectionViewCell.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "-pushUpdateWithCollectionViewCellModel:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "828CFBA8-7818-465C-A0F9-F64FB155E0F6"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -96,7 +64,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "36"
             endingLineNumber = "36"
-            landmarkName = "-bindDownloadTaskToEffectPanelCell:"
+            landmarkName = "-bindDownloadTaskToEffectPanelCellViewModel:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

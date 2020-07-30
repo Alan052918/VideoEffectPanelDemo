@@ -36,7 +36,8 @@ static const CGFloat EffectPanelCollectionViewCellSpacingLeftRight = 15.0f;
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         self.downloadManager = [[EffectDownloadManager alloc] init];
-        
+        self.collectionViewModel = [[EffectPanelCollectionViewModel alloc] init];
+        self.collectionViewModel.delegate = self.downloadManager;
         [self setupCollectionView];
     }
     return self;
@@ -59,8 +60,6 @@ static const CGFloat EffectPanelCollectionViewCellSpacingLeftRight = 15.0f;
     [self.collectionView registerClass:EffectPanelCollectionViewCell.class forCellWithReuseIdentifier:NSStringFromClass(EffectPanelCollectionViewCell.class)];
     
     [self addSubview:self.collectionView];
-
-    self.collectionViewModel = [[EffectPanelCollectionViewModel alloc] init];
 }
 
 /**
@@ -96,9 +95,9 @@ static const CGFloat EffectPanelCollectionViewCellSpacingLeftRight = 15.0f;
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     EffectPanelCollectionViewCell *effectPanelCell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(EffectPanelCollectionViewCell.class) forIndexPath:indexPath];
     EffectPanelCollectionViewCellModel *effectPanelCellViewModel = [self.collectionViewModel objectAtIndex:indexPath.item];
-    effectPanelCell.delegate = self.downloadManager;
-    Effect *effect = [effectPanelCell pushUpdateWithCollectionViewCellModel:effectPanelCellViewModel];
-    [self.collectionViewModel updateCellViewModelAtIndex:indexPath.item effect:effect effectStatus:effectPanelCellViewModel.cellViewModelEffectStatus];
+    [effectPanelCell pushUpdateWithCollectionViewCellModel:effectPanelCellViewModel onCompletion:^{
+//        [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    }];
     return effectPanelCell;
 }
 
@@ -106,8 +105,9 @@ static const CGFloat EffectPanelCollectionViewCellSpacingLeftRight = 15.0f;
 #pragma mark <UICollectionViewDelegate>
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self.collectionViewModel selectCellViewModelAtIndex:indexPath.item];
-    [self.collectionView reloadData];
+    NSLog(@"[%@.m] Selected item at index path %@", self.class, indexPath);
+    [self.collectionViewModel updateCellViewModelAtIndex:indexPath.item];
+    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
 

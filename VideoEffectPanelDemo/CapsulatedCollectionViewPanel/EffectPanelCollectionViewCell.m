@@ -78,27 +78,18 @@ static const CGFloat EffectThumbnailImageMargin = 5.0f;
 /**
  * Bind Model data to View display
  */
-- (Effect *)pushUpdateWithCollectionViewCellModel:(EffectPanelCollectionViewCellModel *)cellViewModel {
+- (void)pushUpdateWithCollectionViewCellModel:(EffectPanelCollectionViewCellModel *)cellViewModel onCompletion:(void (^)(void))afterWork {
     self.cellId = cellViewModel.cellViewModelId;
     self.cellNameLabel.text = cellViewModel.cellViewModelName;
     self.cellThumbnailImageView.image = [UIImage imageNamed:cellViewModel.cellViewModelImageUrl];
     self.cellSelectedMask.alpha = cellViewModel.isSelected ? 0.6f : 0.0f;
     if (cellViewModel.cellViewModelEffectStatus == CellViewModelEffectDownloading) {
-        NSLog(@"[%@.m] cell effect downloading", self.class);
-        self.cellDownloadMask.alpha = 0.7f;
-        [self.delegate bindDownloadTaskToEffectPanelCell:self];
-        return [self.delegate downloadEffectForEffectPanelCell:self];
+        self.cellDownloadMask.alpha = 0.6f;
+        self.cellDownloadMask.text = [NSString stringWithFormat:@"%ld", cellViewModel.effectDownloadProgressValue];
+    } else {
+        self.cellDownloadMask.alpha = 0.0f;
     }
-    return nil;
-}
-
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    self.cellDownloadMask.text = [NSString stringWithFormat:@"%@%%", [[object valueForKeyPath:@"downloadProgressValue"] stringValue]];
-    NSLog(@"[%@.m] downloading progress: [%@]", self.class, self.cellDownloadMask.text);
-    if ([self.cellDownloadMask.text isEqualToString:@"100%%"]) {
-        [self.delegate unbindDownloadTaskToEffectPanelCell:self];
-    }
+    !afterWork ? : afterWork();
 }
 
 

@@ -7,19 +7,27 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EffectPanelCollectionViewCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class EffectPanelCollectionViewCellModel, Effect;
+@protocol EffectPanelCollectionViewModelDelegate <NSObject>
+
+- (void)bindDownloadTaskToEffectPanelCellViewModel:(EffectPanelCollectionViewCellModel *)cellViewModel;
+- (void)unbindDownloadTaskToEffectPanelCellViewModel:(EffectPanelCollectionViewCellModel *)cellViewModel;
+- (Effect *)downloadEffectForEffectPanelCellViewModel:(EffectPanelCollectionViewCellModel *)cellViewModel;
+
+@end
 /// Collection view data source
+@class Effect;
 @interface EffectPanelCollectionViewModel : NSObject
+
+@property (nonatomic, strong) id <EffectPanelCollectionViewModelDelegate> delegate;
 
 - (NSInteger)countCellViewModels;
 - (EffectPanelCollectionViewCellModel *)objectAtIndex:(NSInteger)index;
 - (void)addCellViewModel:(EffectPanelCollectionViewCellModel *)cellViewModel;
-- (void)selectCellViewModelAtIndex:(NSInteger)index;
-- (void)updateCellViewModelAtIndex:(NSInteger)index effect:(Effect *)effect effectStatus:(CellViewModelEffectStatus)status;
+- (void)updateCellViewModelAtIndex:(NSInteger)index;
 
 @end
 

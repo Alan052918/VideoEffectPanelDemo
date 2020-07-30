@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, CellViewModelEffectStatus) {
 @property (nonatomic, strong) NSString *cellViewModelName;
 @property (nonatomic, strong) NSString *cellViewModelImageUrl;
 @property (nonatomic, assign) NSInteger cellViewModelEffectStatus;
+@property (nonatomic, assign) NSInteger effectDownloadProgressValue;
 @property (nonatomic, strong, nullable) Effect *cellViewModelEffect;
 @property (nonatomic, assign, getter=isSelected) BOOL selected;
 
