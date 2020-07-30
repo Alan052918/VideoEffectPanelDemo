@@ -12,7 +12,7 @@
 #import "Effect.h"
 #import "EffectDownloadTask.h"
 
-@interface EffectDownloadManager () <EffectPanelCollectionViewModelDelegate>
+@interface EffectDownloadManager ()
 
 @property (nonatomic, strong) NSMutableDictionary <NSString *, EffectDownloadTask *> *effectDownloadTaskMap;
 
@@ -30,36 +30,36 @@
 }
 
 
-- (void)bindDownloadTaskToEffectPanelCellViewModel:(nonnull EffectPanelCollectionViewCellModel *)cellViewModel {
+- (void)bindDownloadTaskToEffectPanelCellViewModel:(nonnull EffectPanelCollectionViewModel *)viewModel cellViewModelId:(NSString *)cellViewModelId {
     EffectDownloadTask *task = [[EffectDownloadTask alloc] init];
     task.taskId = [NSString stringWithFormat:@"%ld", self.effectDownloadTaskMap.count];
-    if (cellViewModel.cellViewModelId) {
-        [self.effectDownloadTaskMap setObject:task forKey:cellViewModel.cellViewModelId];
-        [task addObserver:cellViewModel forKeyPath:@"downloadProgressValue" options:NSKeyValueObservingOptionNew context:nil];
-        NSLog(@"[%@.m] Bind cell [%@] to task [%@]", self.class, cellViewModel.cellViewModelId, task.taskId);
+    if (cellViewModelId) {
+        [self.effectDownloadTaskMap setObject:task forKey:cellViewModelId];
+        [task addObserver:viewModel forKeyPath:@"downloadProgressValue" options:NSKeyValueObservingOptionNew context:nil];
+        NSLog(@"[%@.m] Bind cell [%@] to task [%@]", self.class, cellViewModelId, task.taskId);
     } else {
         NSLog(@"[%@.m] Fail to BIND task to cell: nil cellId", self.class);
     }
 }
 
 
-- (void)unbindDownloadTaskToEffectPanelCellViewModel:(nonnull EffectPanelCollectionViewCellModel *)cellViewModel {
-    if (cellViewModel.cellViewModelId) {
-        EffectDownloadTask *task = [self.effectDownloadTaskMap objectForKey:cellViewModel.cellViewModelId];
-        [task removeObserver:cellViewModel forKeyPath:@"downloadProgressValue" context:nil];
-        NSLog(@"[%@.m] Unbind cell [%@] to task [%@]", self.class, cellViewModel.cellViewModelId, task.taskId);
+- (void)unbindDownloadTaskToEffectPanelCellViewModel:(nonnull EffectPanelCollectionViewModel *)viewModel cellViewModelId:(NSString *)cellViewModelId {
+    if (cellViewModelId) {
+        EffectDownloadTask *task = [self.effectDownloadTaskMap objectForKey:cellViewModelId];
+        [task removeObserver:viewModel forKeyPath:@"downloadProgressValue" context:nil];
+        NSLog(@"[%@.m] Unbind cell [%@] to task [%@]", self.class, cellViewModelId, task.taskId);
     } else {
         NSLog(@"[%@.m] Fail to UNBIND task to cell: nil cellId", self.class);
     }
 }
 
 
-- (Effect *)downloadEffectForEffectPanelCellViewModel:(nonnull EffectPanelCollectionViewCellModel *)cellViewModel {
-    if (cellViewModel.cellViewModelId) {
-        EffectDownloadTask *task = [self.effectDownloadTaskMap objectForKey:cellViewModel.cellViewModelId];
-        NSLog(@"[%@.m] Cell [%@] task [%@]: start downloading", self.class, cellViewModel.cellViewModelId, task.taskId);
+- (Effect *)downloadEffectForEffectPanelCellViewModel:(nonnull EffectPanelCollectionViewModel *)viewModel cellViewModelId:(NSString *)cellViewModelId {
+    if (cellViewModelId) {
+        EffectDownloadTask *task = [self.effectDownloadTaskMap objectForKey:cellViewModelId];
+        NSLog(@"[%@.m] Cell [%@] task [%@]: start downloading", self.class, cellViewModelId, task.taskId);
         Effect *effect = [task downloadEffect];
-        NSLog(@"[%@.m] Cell [%@] task [%@]: download complete", self.class, cellViewModel.cellViewModelId, task.taskId);
+        NSLog(@"[%@.m] Cell [%@] task [%@]: download complete", self.class, cellViewModelId, task.taskId);
         return effect;
     }
     NSLog(@"[%@.m] Fail to START task to cell: nil cellId", self.class);

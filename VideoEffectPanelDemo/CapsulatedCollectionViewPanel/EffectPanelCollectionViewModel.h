@@ -10,16 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class EffectPanelCollectionViewCellModel, Effect;
+@class EffectPanelCollectionViewModel, EffectPanelCollectionViewCellModel, Effect;
 @protocol EffectPanelCollectionViewModelDelegate <NSObject>
 
-- (void)bindDownloadTaskToEffectPanelCellViewModel:(EffectPanelCollectionViewCellModel *)cellViewModel;
-- (void)unbindDownloadTaskToEffectPanelCellViewModel:(EffectPanelCollectionViewCellModel *)cellViewModel;
-- (Effect *)downloadEffectForEffectPanelCellViewModel:(EffectPanelCollectionViewCellModel *)cellViewModel;
+- (void)bindDownloadTaskToEffectPanelCellViewModel:(EffectPanelCollectionViewModel *)viewModel cellViewModelId:(NSString *)cellViewModelId;
+- (void)unbindDownloadTaskToEffectPanelCellViewModel:(EffectPanelCollectionViewModel *)viewModel cellViewModelId:(NSString *)cellViewModelId;
+- (Effect *)downloadEffectForEffectPanelCellViewModel:(EffectPanelCollectionViewModel *)viewModel cellViewModelId:(NSString *)cellViewModelId;
 
 @end
 /// Collection view data source
-@class Effect;
 @interface EffectPanelCollectionViewModel : NSObject
 
 @property (nonatomic, strong) id <EffectPanelCollectionViewModelDelegate> delegate;
