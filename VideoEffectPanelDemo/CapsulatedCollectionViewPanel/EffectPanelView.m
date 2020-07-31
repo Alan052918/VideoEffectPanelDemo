@@ -35,9 +35,9 @@ static const CGFloat EffectPanelCollectionViewCellSpacingLeftRight = 15.0f;
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        self.downloadManager = [[EffectDownloadManager alloc] init];
+//        self.downloadManager = [[EffectDownloadManager alloc] init];
         self.collectionViewModel = [[EffectPanelCollectionViewModel alloc] init];
-        self.collectionViewModel.delegate = self.downloadManager;
+//        self.collectionViewModel.delegate = self.downloadManager;
         [self setupCollectionView];
     }
     return self;

@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
 
     ServersideModel *serversideModel = [[ServersideModel alloc] init];
     [serversideModel populateServersideModelContent];

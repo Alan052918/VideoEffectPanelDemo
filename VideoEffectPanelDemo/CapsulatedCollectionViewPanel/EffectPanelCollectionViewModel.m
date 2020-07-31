@@ -50,10 +50,10 @@
     if (!targetCellViewModel.cellViewModelEffect) {
         if (targetCellViewModel.isSelected) {
             [self.selectedCellViewModels setObject:targetCellViewModel forKey:targetCellViewModel.cellViewModelId];
-            [self.delegate bindDownloadTaskToEffectPanelCellViewModel:self cellViewModelId:targetCellViewModel.cellViewModelId];
+//            [self.delegate bindDownloadTaskToEffectPanelCellViewModel:self cellViewModelId:targetCellViewModel.cellViewModelId];
             NSLog(@"[%@.m] Cell [%@] selected, download beginned", self.class, targetCellViewModel.cellViewModelName);
-            [self.delegate downloadEffectForEffectPanelCellViewModel:self cellViewModelId:targetCellViewModel.cellViewModelId];
-            [self.delegate unbindDownloadTaskToEffectPanelCellViewModel:self cellViewModelId:targetCellViewModel.cellViewModelId];
+//            [self.delegate downloadEffectForEffectPanelCellViewModel:self cellViewModelId:targetCellViewModel.cellViewModelId];
+//            [self.delegate unbindDownloadTaskToEffectPanelCellViewModel:self cellViewModelId:targetCellViewModel.cellViewModelId];
         } else {
             [self.selectedCellViewModels removeObjectForKey:targetCellViewModel.cellViewModelId];
             NSLog(@"[%@.m] Cell [%@] selected, download cancelled", self.class, targetCellViewModel.cellViewModelName);
@@ -65,9 +65,8 @@
 }
 
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (object)
-}
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+//}
 
 
 @end

@@ -11,7 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EffectDownloadManager : NSObject <EffectPanelCollectionViewModelDelegate>
+@interface EffectDownloadManager : NSObject
+//<EffectPanelCollectionViewModelDelegate>
 
 @end
 
